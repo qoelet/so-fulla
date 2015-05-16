@@ -7,7 +7,6 @@ import qualified Data.Vector.Generic              as V
 import qualified Sound.File.Sndfile               as SF
 import qualified Sound.File.Sndfile.Buffer.Vector as BV
 import           Sound.Pulse.Simple
-import           Sound.Pulse.Simple
 
 playFlac :: FilePath -> Simple -> IO ()
 playFlac fp conn = do
