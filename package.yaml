@@ -1,0 +1,23 @@
+name: "so-fulla"
+version: "0.1.0"
+category: "Console, System"
+license: "BSD3"
+author: "kenny shen"
+maintainer: "kenny@machinesung.com"
+
+dependencies:
+  - base == 4.*
+  - getopt-generics
+  - pulse-simple
+  - hsndfile
+  - hsndfile-vector
+  - vector
+
+executables:
+  fs:
+    main: Main.hs
+    source-dirs:
+      - src
+      - driver
+
+github: qoelet/so-fulla
