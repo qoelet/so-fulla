@@ -3,29 +3,83 @@
 module Fulla where
 
 import           Control.Exception
+import           Data.List
+import           System.Directory
+
 import qualified Data.Vector.Generic              as V
 import qualified Sound.File.Sndfile               as SF
 import qualified Sound.File.Sndfile.Buffer.Vector as BV
 import           Sound.Pulse.Simple
 
-playFlac :: FilePath -> Simple -> IO ()
-playFlac fp conn = do
-  (info, Just (buffy :: BV.Buffer Float)) <- SF.readFile fp
-  let flac = V.toList $ BV.fromBuffer buffy
-  putStrLn $ "format: "      ++ (show $ SF.format info)
-  putStrLn $ "sample rate: " ++ (show $ SF.samplerate info)
-  putStrLn $ "channels: "    ++ (show $ SF.channels info)
-  putStrLn $ "frames: "      ++ (show $ SF.frames info)
-  simpleWrite conn flac
+readSource :: FilePath -> IO [FilePath]
+readSource s = do
+  isFile <- doesFileExist s
+  case isFile of
+    True -> return [s]
+    False -> do
+      isDir <- doesDirectoryExist s
+      case isDir of
+        True -> getDirectoryContents s >>= filterDirContents >>= return . sort . map ((s ++ "/") ++)
+        False -> return []
+
+filterDirContents :: [FilePath] -> IO [FilePath]
+filterDirContents = return . (filter (/= ".")) . (filter (/= ".."))
+
+play :: [FilePath] -> Simple -> IO ()
+play [] _ = return ()
+play (x:xs) conn = do
+  withAudioFile x $ \ h -> do
+    playS h conn
+  play xs conn
+
+playS :: SF.Handle -> Simple -> IO ()
+playS h conn = do
+  -- how do I stream the file ?
+  mFrames <- streamFlac h
+  case mFrames of
+    Just frames -> do
+      simpleWrite conn frames
+      playS h conn
+    Nothing -> return ()
+
+streamFlac :: SF.Handle -> IO (Maybe [Float])
+streamFlac h = do
+  mStream <- SF.hGetBuffer h 220500
+  case mStream of
+    Nothing -> return Nothing
+    Just (buffy :: BV.Buffer Float) -> do
+      let flacS = V.toList $ BV.fromBuffer buffy
+      return (Just flacS)
 
 connectPulseAudio :: IO Simple
-connectPulseAudio = simpleNew Nothing "so-fulla" Play (Just "alsa_output.usb-Schiit_Audio_I_m_Fulla_Schiit-00-Schiit.analog-stereo") "play on the Fulla!"
-          (SampleSpec (F32 LittleEndian) 44100 2) Nothing Nothing
+connectPulseAudio
+  = simpleNew
+    Nothing
+    "so-fulla"
+    Play
+    (Just "alsa_output.usb-Schiit_Audio_I_m_Fulla_Schiit-00-Schiit.analog-stereo")
+    "play on the Fulla!"
+    (SampleSpec (F32 LittleEndian) 44100 2)
+    Nothing
+    Nothing
 
 closePulseAudio :: Simple -> IO ()
 closePulseAudio conn = do
   simpleDrain conn
   simpleFree conn
 
-withPulseAudioConn :: (Simple -> IO ()) -> IO ()
-withPulseAudioConn = bracket connectPulseAudio closePulseAudio
+withPulseAudio :: (Simple -> IO ()) -> IO ()
+withPulseAudio = bracket connectPulseAudio closePulseAudio
+
+readAudioFile :: FilePath -> IO (SF.Handle)
+readAudioFile s = do
+  info <- SF.getFileInfo s
+  putStrLn $ "now playing: " ++ s
+  putStrLn $ "-- format: " ++ (show $ SF.format info)
+  putStrLn $ "-- sample rate: " ++ (show $ SF.samplerate info)
+  putStrLn $ "-- channels: " ++ (show $ SF.channels info)
+  putStrLn $ "-- frames: " ++ (show $ SF.frames info)
+  SF.openFile s SF.ReadMode info
+
+withAudioFile :: FilePath -> (SF.Handle -> IO()) -> IO ()
+withAudioFile s = bracket (readAudioFile s) SF.hClose

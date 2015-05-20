@@ -10,4 +10,6 @@ i.e.
 $ fs --flac /some/music/file.flac
 ```
 
+only `flac` or `wav` files.
+
 experimental, use at your own risk.

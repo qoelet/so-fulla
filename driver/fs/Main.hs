@@ -11,7 +11,7 @@ import           Fulla
 
 data Options
   = Options {
-    flac :: FilePath
+    source :: FilePath
   }
   deriving (Show, GHC.Generics.Generic)
 
@@ -21,4 +21,5 @@ instance HasDatatypeInfo Options
 main :: IO ()
 main = do
   options <- getArguments
-  withPulseAudioConn (playFlac $ flac options)
+  s <- readSource (source options)
+  withPulseAudio (play s)

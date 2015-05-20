@@ -12,12 +12,24 @@ dependencies:
   - hsndfile
   - hsndfile-vector
   - vector
+  - directory > 1.2.1
+  - yaml
 
 executables:
   fs:
     main: Main.hs
     source-dirs:
       - src
-      - driver
+      - driver/fs
+
+tests:
+  spec:
+    main: Spec.hs
+    source-dirs:
+      - src
+      - test
+    dependencies:
+     - hspec
+     - temporary
 
 github: qoelet/so-fulla
