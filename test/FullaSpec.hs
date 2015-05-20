@@ -16,9 +16,9 @@ spec = do
 
     it "returns [filepath] that are flac files when given a source that's a directory" $ do
       withSystemTempDirectory "test" $ \ tmpDir -> do
-      (f, _) <- openTempFile tmpDir "foo.flac"
-      (g, _) <- openTempFile tmpDir "bar.flac"
-      readSource tmpDir `shouldReturn` [g, f]
+        (f, _) <- openTempFile tmpDir "foo.flac"
+        (g, _) <- openTempFile tmpDir "bar.flac"
+        readSource tmpDir `shouldReturn` [g, f]
 
   describe "isFlac" $ do
     it "returns true if given file is FLAC" $ do

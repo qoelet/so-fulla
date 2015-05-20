@@ -22,7 +22,6 @@ executable fs
   main-is: Main.hs
   other-modules:
       Fulla
-      PlayList
   build-depends:
       base == 4.*
     , getopt-generics
@@ -32,6 +31,7 @@ executable fs
     , vector
     , directory > 1.2.1
     , yaml
+    , filepath
   default-language: Haskell2010
 
 test-suite spec
@@ -40,9 +40,7 @@ test-suite spec
   main-is: Spec.hs
   other-modules:
       Fulla
-      PlayList
       FullaSpec
-      PlayListSpec
   build-depends:
       base == 4.*
     , getopt-generics
@@ -52,6 +50,7 @@ test-suite spec
     , vector
     , directory > 1.2.1
     , yaml
+    , filepath
 
     , hspec
     , temporary
