@@ -3,7 +3,7 @@
 -- see: https://github.com/sol/hpack
 
 name:           so-fulla
-version:        0.1.0
+version:        0.2.0
 category:       Console, System
 homepage:       https://github.com/qoelet/so-fulla#readme
 bug-reports:    https://github.com/qoelet/so-fulla/issues
@@ -22,6 +22,8 @@ executable fs
   main-is: Main.hs
   other-modules:
       Fulla
+      PlayList
+      Utils
   build-depends:
       base == 4.*
     , getopt-generics
@@ -40,7 +42,10 @@ test-suite spec
   main-is: Spec.hs
   other-modules:
       Fulla
+      PlayList
+      Utils
       FullaSpec
+      PlayListSpec
   build-depends:
       base == 4.*
     , getopt-generics

@@ -19,7 +19,3 @@ spec = do
         (f, _) <- openTempFile tmpDir "foo.flac"
         (g, _) <- openTempFile tmpDir "bar.flac"
         readSource tmpDir `shouldReturn` [g, f]
-
-  describe "isFlac" $ do
-    it "returns true if given file is FLAC" $ do
-      pending

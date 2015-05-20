@@ -1,0 +1,13 @@
+- name: Foo
+  artist: Bar
+  location: /home/foo/music
+  songs:
+    - "baa-baa.flac"
+    - "baz.flac"
+
+- name: Bar
+  artist: Qux
+  location: /home/bar/music
+  songs:
+    - "abc.flac"
+    - "efg.flac"

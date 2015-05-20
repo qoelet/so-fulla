@@ -11,6 +11,8 @@ import qualified Sound.File.Sndfile               as SF
 import qualified Sound.File.Sndfile.Buffer.Vector as BV
 import           Sound.Pulse.Simple
 
+import Utils
+
 readSource :: FilePath -> IO [FilePath]
 readSource s = do
   isFile <- doesFileExist s
@@ -21,9 +23,6 @@ readSource s = do
       case isDir of
         True -> getDirectoryContents s >>= filterDirContents >>= return . sort . map ((s ++ "/") ++)
         False -> return []
-
-filterDirContents :: [FilePath] -> IO [FilePath]
-filterDirContents = return . (filter (/= ".")) . (filter (/= ".."))
 
 play :: [FilePath] -> Simple -> IO ()
 play [] _ = return ()
@@ -51,25 +50,29 @@ streamFlac h = do
       let flacS = V.toList $ BV.fromBuffer buffy
       return (Just flacS)
 
-connectPulseAudio :: IO Simple
-connectPulseAudio
+connectPulseAudio :: Maybe String -> IO Simple
+connectPulseAudio sink
   = simpleNew
     Nothing
     "so-fulla"
     Play
-    (Just "alsa_output.usb-Schiit_Audio_I_m_Fulla_Schiit-00-Schiit.analog-stereo")
+    sink'
     "play on the Fulla!"
     (SampleSpec (F32 LittleEndian) 44100 2)
     Nothing
     Nothing
+  where
+    sink' = case sink of
+      Nothing -> Just "alsa_output.usb-Schiit_Audio_I_m_Fulla_Schiit-00-Schiit.analog-stereo"
+      Just s -> Just s
 
 closePulseAudio :: Simple -> IO ()
 closePulseAudio conn = do
   simpleDrain conn
   simpleFree conn
 
-withPulseAudio :: (Simple -> IO ()) -> IO ()
-withPulseAudio = bracket connectPulseAudio closePulseAudio
+withPulseAudio :: Maybe String -> (Simple -> IO ()) -> IO ()
+withPulseAudio s = bracket (connectPulseAudio s) closePulseAudio
 
 readAudioFile :: FilePath -> IO (SF.Handle)
 readAudioFile s = do
