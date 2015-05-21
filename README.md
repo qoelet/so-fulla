@@ -1,14 +1,52 @@
 # so fulla ►
 
+a minimal commandline music player.
+
 motivated by wanting to always play on my [Fulla](http://schiit.com/products/fulla) whenever it's plugged in.
 
-other ideas: playlists in YAML, flags for music, podcast, etc.
 
-i.e.
+## install
 
 ```shell
-$ fs --flac /some/music/file.flac
+
+$ cabal sandbox init && cabal install --only-dep && cabal build
+$ cabal install # --prefix /home/you/wherever
 ```
+
+## usage
+
+```shell
+$ fs --help
+fs
+      --source=string (optional)
+      --playlist=string (optional)
+      --sink=string (optional)
+  -h  --help                        show help and exit
+
+```
+
+you can specify a single file or folder using the `--source` or use a playlist (YAML). an example:
+
+```yaml
+- name: "The Black Light"
+  artist: "Calexico"
+  location: "/home//Calexico_The_Black_Light"
+
+- name: "Born Under Saturn"
+  artist: "Django Django"
+  location: "/home//music/Django\ Django\ -\ Born\ Under\ Saturn\ -\ 2015\ [FLAC]"
+  songs:
+    - "01 Giant.flac"
+    - "02 Shake and Tremble.flac"
+    - "03 Found You.flac"
+    - "04 First Light.flac"
+```
+if `songs` are not specified, the `location` is read and played.
+
+you can also specify any other DAC using the `--sink` by passing in the name of the sink.
+
+
+## disclaimer
 
 only `flac` or `wav` files.
 
