@@ -25,16 +25,22 @@ fs
 
 ```
 
-you can specify a single file or folder using the `--source` or use a playlist (YAML). an example:
+you can specify a single file or folder using the `--source`, for example:
+
+```shell
+$ fs --source /home/music/foo.flac
+```
+
+or use a playlist (YAML). an example:
 
 ```yaml
 - name: "The Black Light"
   artist: "Calexico"
-  location: "/home//Calexico_The_Black_Light"
+  location: "/home/music/Calexico_The_Black_Light"
 
 - name: "Born Under Saturn"
   artist: "Django Django"
-  location: "/home//music/Django\ Django\ -\ Born\ Under\ Saturn\ -\ 2015\ [FLAC]"
+  location: "/home/music/Django\ Django\ -\ Born\ Under\ Saturn\ -\ 2015\ [FLAC]"
   songs:
     - "01 Giant.flac"
     - "02 Shake and Tremble.flac"
