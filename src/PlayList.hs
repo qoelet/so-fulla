@@ -37,4 +37,5 @@ playListToSource s = do
       Just ss -> return $ map ((loc ++ "/") ++) ss
       Nothing -> do
         ss <- getDirectoryContents loc
-        filterDirContents ss
+        ss' <- filterDirContents ss
+        return $ map ((loc ++ "/") ++) ss'
