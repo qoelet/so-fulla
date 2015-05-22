@@ -16,13 +16,12 @@ $ cabal install # --prefix /home/you/wherever
 ## usage
 
 ```shell
-$ fs --help
 fs
       --source=string (optional)
       --playlist=string (optional)
       --sink=string (optional)
+      --shuffle
   -h  --help                        show help and exit
-
 ```
 
 you can specify a single file or folder using the `--source`, for example:
