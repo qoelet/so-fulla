@@ -50,6 +50,13 @@ if `songs` are not specified, the `location` is read and played.
 
 you can also specify any other DAC using the `--sink` by passing in the name of the sink.
 
+## interaction during playback
+
+during playback,
+
+<kbd>SPACE</kbd> to skip to next song
+
+<kbd>q</kbd> to quit
 
 ## disclaimer
 
