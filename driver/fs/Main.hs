@@ -2,13 +2,16 @@
 
 module Main where
 
+import           Control.Concurrent
 import           Data.Typeable
 import           GHC.Generics
 import           System.Console.GetOpt.Generics
 import           System.Environment
+import           System.IO
 import           System.Random
-import           System.Random.Shuffle (shuffle')
+import           System.Random.Shuffle          (shuffle')
 
+import           Control
 import           Fulla
 import           PlayList
 
@@ -27,6 +30,11 @@ instance HasDatatypeInfo Options
 main :: IO ()
 main = do
   options <- getArguments
+  keyListen <- initKey
+
+  hSetBuffering stdin NoBuffering
+  hSetEcho stdin False
+  forkIO $ pollUser keyListen
   let mSink = sink options
       shuff = shuffle options
   case source options of
@@ -36,8 +44,8 @@ main = do
         True -> do
           g <- getStdGen
           let rS = shuffle' s' (length s') g
-          (withPulseAudio mSink) (play rS)
-        False -> (withPulseAudio mSink) (play s')
+          (withPulseAudio mSink) (play rS keyListen)
+        False -> (withPulseAudio mSink) (play s' keyListen)
     Nothing -> do
       case playlist options of
         Just s -> do
@@ -47,8 +55,8 @@ main = do
             True -> do
               g <- getStdGen
               let rS = shuffle' s' (length s') g
-              (withPulseAudio mSink) (play rS)
-            False -> (withPulseAudio mSink) (play s')
+              (withPulseAudio mSink) (play rS keyListen)
+            False -> (withPulseAudio mSink) (play s' keyListen)
         Nothing -> do
           -- todo: try and look for default playlist in ~/
           putStrLn "nothing to do."

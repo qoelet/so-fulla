@@ -5,13 +5,15 @@ module Fulla where
 import           Control.Exception
 import           Data.List
 import           System.Directory
+import           System.Exit
 
 import qualified Data.Vector.Generic              as V
 import qualified Sound.File.Sndfile               as SF
 import qualified Sound.File.Sndfile.Buffer.Vector as BV
 import           Sound.Pulse.Simple
 
-import Utils
+import           Control
+import           Utils
 
 readSource :: FilePath -> IO [FilePath]
 readSource s = do
@@ -24,26 +26,34 @@ readSource s = do
         True -> getDirectoryContents s >>= filterDirContents >>= return . sort . map ((s ++ "/") ++)
         False -> return []
 
-play :: [FilePath] -> Simple -> IO ()
-play [] _ = return ()
-play (x:xs) conn = do
+play :: [FilePath] -> KeyListen -> Simple -> IO ()
+play [] _ _ = return ()
+play (x:xs) key conn = do
   withAudioFile x $ \ h -> do
-    playS h conn
-  play xs conn
+    playS h conn key
+  play xs key conn
 
-playS :: SF.Handle -> Simple -> IO ()
-playS h conn = do
+playS :: SF.Handle -> Simple -> KeyListen -> IO ()
+playS h conn key@(Key s) = do
   -- how do I stream the file ?
   mFrames <- streamFlac h
   case mFrames of
     Just frames -> do
-      simpleWrite conn frames
-      playS h conn
+      quitFs <- quit key
+      if quitFs
+        then exitWith ExitSuccess
+        else do
+          playNext <- nextSong key
+          case playNext of
+            True -> return ()
+            False -> do
+              simpleWrite conn frames
+              playS h conn key
     Nothing -> return ()
 
 streamFlac :: SF.Handle -> IO (Maybe [Float])
 streamFlac h = do
-  mStream <- SF.hGetBuffer h 220500
+  mStream <- SF.hGetBuffer h 44100
   case mStream of
     Nothing -> return Nothing
     Just (buffy :: BV.Buffer Float) -> do
