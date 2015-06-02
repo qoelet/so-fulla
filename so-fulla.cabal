@@ -1,4 +1,4 @@
--- This file has been generated from package.yaml by hpack version 0.1.2.
+-- This file has been generated from package.yml by hpack version 0.2.0.
 --
 -- see: https://github.com/sol/hpack
 
@@ -21,6 +21,7 @@ executable fs
   hs-source-dirs: src, driver/fs
   main-is: Main.hs
   other-modules:
+      Control
       Fulla
       PlayList
       Utils
@@ -43,9 +44,11 @@ test-suite spec
   hs-source-dirs: src, test
   main-is: Spec.hs
   other-modules:
+      Control
       Fulla
       PlayList
       Utils
+      ControlSpec
       FullaSpec
       PlayListSpec
   build-depends:
