@@ -1,9 +1,10 @@
 # so fulla ►
 
+![capture](https://github.com/qoelet/so-fulla/blob/master/so-fulla.png?raw=True)
+
 a minimal commandline music player.
 
 motivated by wanting to always play on my [Fulla](http://schiit.com/products/fulla) whenever it's plugged in.
-
 
 ## install
 
