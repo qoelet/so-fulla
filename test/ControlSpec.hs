@@ -12,7 +12,7 @@ spec = do
       readKey kL `shouldReturn` ""
 
   describe "nextSong" $ do
-    it "returns true when input is n" $ do
+    it "returns true when input is space" $ do
       kL <- initKey
-      writeKey 'n' kL
+      writeKey ' ' kL
       nextSong kL `shouldReturn` True

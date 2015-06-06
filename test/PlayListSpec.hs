@@ -8,7 +8,7 @@ spec :: Spec
 spec = do
   describe "readPlayList" $ do
     it "parses a YAML file" $ do
-      readPlayList "/home/revtintin/labs/so-fulla/playlist.yaml"
+      readPlayList "/home/revtintin/labs/so-fulla/playlist.yml"
         `shouldReturn`
           Album {name = "Foo", artist = "Bar", location = "/home/foo/music", songs = Just ["baa-baa.flac","baz.flac"]} :
           Album {name = "Bar", artist = "Qux", location = "/home/bar/music", songs = Just ["abc.flac","efg.flac"]} :
