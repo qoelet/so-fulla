@@ -88,11 +88,16 @@ readAudioFile :: FilePath -> IO (SF.Handle)
 readAudioFile s = do
   info <- SF.getFileInfo s
   putStrLn $ "now playing: " ++ s
-  putStrLn $ "-- format: " ++ (show $ SF.format info)
-  putStrLn $ "-- sample rate: " ++ (show $ SF.samplerate info)
-  putStrLn $ "-- channels: " ++ (show $ SF.channels info)
-  putStrLn $ "-- frames: " ++ (show $ SF.frames info)
+  writeAudioFileInfo info
   SF.openFile s SF.ReadMode info
+
+writeAudioFileInfo :: SF.Info -> IO ()
+writeAudioFileInfo info = do
+  let sampleRate = SF.samplerate info
+      numFrames = SF.frames info
+      durationMin = (numFrames `div` sampleRate) `div` 60
+      durationSec = (numFrames `div` sampleRate) `rem` 60
+  putStrLn $ "length: " ++ show durationMin ++ ":" ++ show durationSec
 
 withAudioFile :: FilePath -> (SF.Handle -> IO()) -> IO ()
 withAudioFile s = bracket (readAudioFile s) SF.hClose

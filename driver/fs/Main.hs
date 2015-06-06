@@ -29,6 +29,7 @@ instance HasDatatypeInfo Options
 
 main :: IO ()
 main = do
+  writeBanner
   options <- getArguments
   keyListen <- initKey
 
@@ -61,3 +62,10 @@ main = do
           -- todo: try and look for default playlist in ~/
           putStrLn "nothing to do."
           return ()
+
+writeBanner :: IO ()
+writeBanner = do
+  let s = "\n \
+  \ |~   || _   (~ _|_ oo_|_\n \
+  \ |~|_|||(_|  _)(_| ||| | \n "
+  putStrLn s
