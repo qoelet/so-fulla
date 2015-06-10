@@ -1,7 +1,6 @@
 module Control where
 
 import           Control.Concurrent
-import           Control.Concurrent.MVar
 
 data KeyListen = Key (MVar String)
 
@@ -27,7 +26,7 @@ writeKey x (Key s) = do
   modifyMVar_ s (\ _ -> return x')
 
 resetKey :: String -> IO String
-resetKey k = return ""
+resetKey _ = return ""
 
 -- controls
 

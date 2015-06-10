@@ -1,7 +1,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 module PlayList where
 
-import           Control.Applicative
 import           Control.Exception
 import           Data.Yaml
 import           GHC.Generics

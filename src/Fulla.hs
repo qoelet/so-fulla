@@ -34,7 +34,7 @@ play (x:xs) key conn = do
   play xs key conn
 
 playS :: SF.Handle -> Simple -> KeyListen -> IO ()
-playS h conn key@(Key s) = do
+playS h conn key = do
   -- how do I stream the file ?
   mFrames <- streamFlac h
   case mFrames of

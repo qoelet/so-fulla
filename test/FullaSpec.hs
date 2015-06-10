@@ -1,6 +1,5 @@
 module FullaSpec where
 
-import           System.FilePath.Posix ((</>))
 import           System.IO.Temp
 import           Test.Hspec
 

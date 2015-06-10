@@ -3,10 +3,8 @@
 module Main where
 
 import           Control.Concurrent
-import           Data.Typeable
 import           GHC.Generics
 import           System.Console.GetOpt.Generics
-import           System.Environment
 import           System.IO
 import           System.Random
 import           System.Random.Shuffle          (shuffle')
@@ -35,7 +33,7 @@ main = do
 
   hSetBuffering stdin NoBuffering
   hSetEcho stdin False
-  forkIO $ pollUser keyListen
+  _ <- forkIO $ pollUser keyListen
   let mSink = sink options
       shuff = shuffle options
   case source options of
