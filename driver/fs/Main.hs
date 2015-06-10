@@ -28,7 +28,7 @@ instance HasDatatypeInfo Options
 main :: IO ()
 main = do
   writeBanner
-  options <- getArguments
+  options <- modifiedGetArguments [AddVersionFlag "0.2.1"]
   keyListen <- initKey
 
   hSetBuffering stdin NoBuffering

@@ -3,7 +3,7 @@
 -- see: https://github.com/sol/hpack
 
 name:           so-fulla
-version:        0.2.0
+version:        0.2.1
 category:       Console, System
 homepage:       https://github.com/qoelet/so-fulla#readme
 bug-reports:    https://github.com/qoelet/so-fulla/issues
