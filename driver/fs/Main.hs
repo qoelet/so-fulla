@@ -1,9 +1,8 @@
-{-# LANGUAGE DeriveDataTypeable, DeriveGeneric #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module Main where
 
 import           Control.Concurrent
-import           GHC.Generics
 import           System.Console.GetOpt.Generics
 import           System.IO
 import           System.Random
@@ -20,10 +19,7 @@ data Options
     , sink :: Maybe String
     , shuffle :: Bool
   }
-  deriving (Show, GHC.Generics.Generic)
-
-instance System.Console.GetOpt.Generics.Generic Options
-instance HasDatatypeInfo Options
+  deriving (Show, Generic)
 
 main :: IO ()
 main = do
