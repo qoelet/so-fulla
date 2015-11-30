@@ -6,14 +6,6 @@ a minimal commandline music player.
 
 motivated by wanting to always play on my [Fulla](http://schiit.com/products/fulla) whenever it's plugged in.
 
-## install
-
-```shell
-
-$ cabal sandbox init && cabal install --only-dep && cabal build
-$ cabal install # --prefix /home/you/wherever
-```
-
 ## usage
 
 ```shell
