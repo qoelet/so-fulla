@@ -24,7 +24,7 @@ data Options
 main :: IO ()
 main = do
   writeBanner
-  options <- modifiedGetArguments [AddVersionFlag "0.2.1"]
+  options <- modifiedGetArguments [AddVersionFlag "0.2.2"]
   keyListen <- initKey
 
   hSetBuffering stdin NoBuffering
