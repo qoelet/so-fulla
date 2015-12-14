@@ -29,8 +29,7 @@ readSource s = do
 play :: [FilePath] -> KeyListen -> Simple -> IO ()
 play [] _ _ = return ()
 play (x:xs) key conn = do
-  withAudioFile x $ \ h -> do
-    playS h conn key
+  withAudioFile x $ \ h -> playS h conn key
   play xs key conn
 
 playS :: SF.Handle -> Simple -> KeyListen -> IO ()
@@ -41,7 +40,7 @@ playS h conn key = do
     Just frames -> do
       quitFs <- quit key
       if quitFs
-        then exitWith ExitSuccess
+        then exitSuccess
         else do
           playNext <- nextSong key
           case playNext of
@@ -84,7 +83,7 @@ closePulseAudio conn = do
 withPulseAudio :: Maybe String -> (Simple -> IO ()) -> IO ()
 withPulseAudio s = bracket (connectPulseAudio s) closePulseAudio
 
-readAudioFile :: FilePath -> IO (SF.Handle)
+readAudioFile :: FilePath -> IO SF.Handle
 readAudioFile s = do
   info <- SF.getFileInfo s
   putStrLn $ "now playing: " ++ s

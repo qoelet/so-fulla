@@ -4,15 +4,14 @@ import           Control.Concurrent
 
 data KeyListen = Key (MVar String)
 
-initKey :: IO (KeyListen)
+initKey :: IO KeyListen
 initKey = do
   kL <- newMVar ""
   return $ Key kL
 
 readKeyUnchanged :: KeyListen -> IO String
 readKeyUnchanged (Key s) = do
-  k <- readMVar s
-  return k
+  readMVar s
 
 readKey :: KeyListen -> IO String
 readKey (Key s) = do
