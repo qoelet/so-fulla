@@ -1,12 +1,12 @@
-{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveAnyClass, DeriveGeneric #-}
 
 module Main where
 
 import           Control.Concurrent
-import           System.Console.GetOpt.Generics
 import           System.IO
 import           System.Random
-import           System.Random.Shuffle          (shuffle')
+import           System.Random.Shuffle (shuffle')
+import           WithCli
 
 import           Control
 import           Fulla
@@ -19,12 +19,15 @@ data Options
     , sink :: Maybe String
     , shuffle :: Bool
   }
-  deriving (Show, Generic)
+  deriving (Show, Generic, HasArguments)
 
 main :: IO ()
-main = do
+main = withCliModified [AddVersionFlag "0.3"] run
+
+
+run :: Options -> IO ()
+run options = do
   writeBanner
-  options <- modifiedGetArguments [AddVersionFlag "0.2.2"]
   keyListen <- initKey
 
   hSetBuffering stdin NoBuffering
@@ -53,7 +56,6 @@ main = do
               (withPulseAudio mSink) (play rS keyListen)
             False -> (withPulseAudio mSink) (play s' keyListen)
         Nothing -> do
-          -- todo: try and look for default playlist in ~/
           putStrLn "nothing to do."
           return ()
 

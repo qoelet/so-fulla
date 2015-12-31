@@ -1,5 +1,5 @@
 name: "so-fulla"
-version: "0.2.2"
+version: "0.3"
 category: "Console, System"
 license: "BSD3"
 author: "kenny shen"
@@ -7,7 +7,7 @@ maintainer: "kenny@machinesung.com"
 
 dependencies:
   - base == 4.*
-  - getopt-generics
+  - getopt-generics >= 0.13
   - pulse-simple
   - hsndfile
   - hsndfile-vector

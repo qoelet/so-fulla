@@ -1,9 +1,9 @@
--- This file has been generated from package.yaml by hpack version 0.5.4.
+-- This file has been generated from package.yaml by hpack version 0.8.0.
 --
 -- see: https://github.com/sol/hpack
 
 name:           so-fulla
-version:        0.2.2
+version:        0.3
 category:       Console, System
 homepage:       https://github.com/qoelet/so-fulla#readme
 bug-reports:    https://github.com/qoelet/so-fulla/issues
@@ -24,7 +24,7 @@ executable fs
     , driver/fs
   build-depends:
       base == 4.*
-    , getopt-generics
+    , getopt-generics >= 0.13
     , pulse-simple
     , hsndfile
     , hsndfile-vector
@@ -49,7 +49,7 @@ test-suite spec
     , test
   build-depends:
       base == 4.*
-    , getopt-generics
+    , getopt-generics >= 0.13
     , pulse-simple
     , hsndfile
     , hsndfile-vector
