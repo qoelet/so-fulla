@@ -4,8 +4,6 @@
 
 a minimal commandline music player.
 
-motivated by wanting to always play on my [Fulla](http://schiit.com/products/fulla) whenever it's plugged in.
-
 ## usage
 
 ```shell
@@ -20,7 +18,7 @@ fs
 you can specify a single file or folder using the `--source`, for example:
 
 ```shell
-$ fs --source /home/music/foo.flac
+$ fs --source /home/music/foo.flac --sink alsa_output.usb-Schiit_Audio_I_m_Fulla_Schiit-00-Schiit.analog-stereo
 ```
 
 or use a playlist (YAML). an example:

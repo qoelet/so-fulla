@@ -24,7 +24,7 @@ readSource s = do
       isDir <- doesDirectoryExist s
       case isDir of
         True -> getDirectoryContents s >>= filterDirContents >>= return . sort . map ((s ++ "/") ++)
-        False -> return []
+        False -> throwIO $ ErrorCall "file does not exist!"
 
 play :: [FilePath] -> KeyListen -> Simple -> IO ()
 play [] _ _ = return ()
@@ -62,18 +62,14 @@ streamFlac h = do
 connectPulseAudio :: Maybe String -> IO Simple
 connectPulseAudio sink
   = simpleNew
-    Nothing
-    "so-fulla"
+    Nothing -- server name
+    "so-fulla" -- client name
     Play
-    sink'
-    "play on the Fulla!"
+    sink
+    "a minimal commandline music player" -- client description
     (SampleSpec (F32 LittleEndian) 44100 2)
-    Nothing
-    Nothing
-  where
-    sink' = case sink of
-      Nothing -> Just "alsa_output.usb-Schiit_Audio_I_m_Fulla_Schiit-00-Schiit.analog-stereo"
-      Just s -> Just s
+    Nothing -- channel position
+    Nothing -- buffer attributes
 
 closePulseAudio :: Simple -> IO ()
 closePulseAudio conn = do
