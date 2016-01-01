@@ -22,7 +22,12 @@ data Options
   deriving (Show, Generic, HasArguments)
 
 main :: IO ()
-main = withCliModified [AddVersionFlag "0.3"] run
+main = withCliModified mods run
+  where
+    mods =
+      (AddVersionFlag "0.3.1") :
+      (AddShortOption "source" 's') :
+      []
 
 
 run :: Options -> IO ()
