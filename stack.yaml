@@ -1,0 +1,11 @@
+resolver: lts-5.17
+
+packages:
+- '.'
+
+extra-deps:
+- pulse-simple-0.1.14
+
+flags: {}
+
+extra-package-dbs: []

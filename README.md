@@ -4,6 +4,13 @@
 
 a minimal commandline music player.
 
+## install
+
+```shell
+$ sudo aptitude install libpulse-dev libsndfile-dev
+$ stack install
+```
+
 ## usage
 
 ```shell
