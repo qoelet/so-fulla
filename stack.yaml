@@ -5,3 +5,8 @@ extra-deps:
 - hsndfile-0.8.0
 - hsndfile-vector-0.5.2
 - pulse-simple-0.1.14
+#nix:
+#  enable: true
+#  packages:
+#  - libpulseaudio
+#  - libsndfile
