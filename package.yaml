@@ -7,12 +7,12 @@ maintainer: "kenny@machinesung.com"
 
 dependencies:
   - base == 4.*
-  - getopt-generics >= 0.13
+  - getopt-generics
   - pulse-simple
   - hsndfile
   - hsndfile-vector
   - vector
-  - directory > 1.2.1
+  - directory
   - yaml
   - filepath
   - random

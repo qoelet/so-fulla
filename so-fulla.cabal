@@ -1,6 +1,10 @@
--- This file has been generated from package.yaml by hpack version 0.8.0.
+cabal-version: >= 1.10
+
+-- This file has been generated from package.yaml by hpack version 0.29.2.
 --
 -- see: https://github.com/sol/hpack
+--
+-- hash: 44ea3b6097e63ecd357cda6d35b1272563cc989993aa3e6a67ddd47e7eb614ab
 
 name:           so-fulla
 version:        0.3.1
@@ -11,7 +15,6 @@ author:         kenny shen
 maintainer:     kenny@machinesung.com
 license:        BSD3
 build-type:     Simple
-cabal-version:  >= 1.10
 
 source-repository head
   type: git
@@ -21,24 +24,25 @@ executable fs
   main-is: Main.hs
   hs-source-dirs:
       src
-    , driver/fs
+      driver/fs
   build-depends:
-      base == 4.*
-    , getopt-generics >= 0.13
-    , pulse-simple
+      base ==4.*
+    , directory
+    , filepath
+    , getopt-generics
     , hsndfile
     , hsndfile-vector
-    , vector
-    , directory > 1.2.1
-    , yaml
-    , filepath
+    , pulse-simple
     , random
     , random-shuffle
+    , vector
+    , yaml
   other-modules:
       Control
       Fulla
       PlayList
       Utils
+      Paths_so_fulla
   default-language: Haskell2010
 
 test-suite spec
@@ -46,21 +50,21 @@ test-suite spec
   main-is: Spec.hs
   hs-source-dirs:
       src
-    , test
+      test
   build-depends:
-      base == 4.*
-    , getopt-generics >= 0.13
-    , pulse-simple
+      base ==4.*
+    , directory
+    , filepath
+    , getopt-generics
     , hsndfile
     , hsndfile-vector
-    , vector
-    , directory > 1.2.1
-    , yaml
-    , filepath
+    , hspec
+    , pulse-simple
     , random
     , random-shuffle
-    , hspec
     , temporary
+    , vector
+    , yaml
   other-modules:
       Control
       Fulla
@@ -69,4 +73,5 @@ test-suite spec
       ControlSpec
       FullaSpec
       PlayListSpec
+      Paths_so_fulla
   default-language: Haskell2010
