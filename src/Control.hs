@@ -2,7 +2,7 @@ module Control where
 
 import           Control.Concurrent
 
-data KeyListen = Key (MVar String)
+newtype KeyListen = Key (MVar String)
 
 initKey :: IO KeyListen
 initKey = do
@@ -10,8 +10,7 @@ initKey = do
   return $ Key kL
 
 readKeyUnchanged :: KeyListen -> IO String
-readKeyUnchanged (Key s) = do
-  readMVar s
+readKeyUnchanged (Key s) = readMVar s
 
 readKey :: KeyListen -> IO String
 readKey (Key s) = do

@@ -18,13 +18,18 @@ import           Utils
 readSource :: FilePath -> IO [FilePath]
 readSource s = do
   isFile <- doesFileExist s
-  case isFile of
-    True -> return [s]
-    False -> do
+  if isFile
+    then return [s]
+    else do
       isDir <- doesDirectoryExist s
-      case isDir of
-        True -> getDirectoryContents s >>= filterDirContents >>= return . sort . map ((s ++ "/") ++)
-        False -> throwIO $ ErrorCall "file does not exist!"
+      if isDir
+        then
+          sort . map ((s ++ "/") ++)
+          <$> (
+            getDirectoryContents s
+            >>= filterDirContents)
+        else
+          throwIO $ ErrorCall "file does not exist!"
 
 play :: [FilePath] -> KeyListen -> Simple -> IO ()
 play [] _ _ = return ()
@@ -43,9 +48,9 @@ playS h conn key = do
         then exitSuccess
         else do
           playNext <- nextSong key
-          case playNext of
-            True -> return ()
-            False -> do
+          if playNext
+            then pure ()
+            else do
               simpleWrite conn frames
               playS h conn key
     Nothing -> return ()
