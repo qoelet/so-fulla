@@ -5,6 +5,8 @@ license: "BSD3"
 author: "kenny shen"
 maintainer: "kenny@machinesung.com"
 
+ghc-options: -Wall -Wincomplete-uni-patterns -Wmissing-import-lists
+
 dependencies:
   - base == 4.*
   - getopt-generics
@@ -24,7 +26,6 @@ executables:
     source-dirs:
       - src
       - driver/fs
-
 tests:
   spec:
     main: Spec.hs
@@ -34,5 +35,4 @@ tests:
     dependencies:
      - hspec
      - temporary
-
 github: qoelet/so-fulla

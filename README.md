@@ -2,9 +2,11 @@
 
 ![capture](https://github.com/qoelet/so-fulla/blob/master/so-fulla.png?raw=True)
 
-a minimal commandline music player.
+A minimal CLI music player.
 
-## install
+## requires
+
+On most Nix systems,
 
 ```shell
 $ sudo aptitude install libpulse-dev libsndfile-dev
@@ -22,10 +24,10 @@ fs
   -h  --help                        show help and exit
 ```
 
-you can specify a single file or folder using the `--source`, for example:
+You can specify a single file or folder using the `--source`, for example:
 
 ```shell
-$ fs --source /home/music/foo.flac --sink alsa_output.usb-Schiit_Audio_I_m_Fulla_Schiit-00-Schiit.analog-stereo
+$ fs --source /home/foo/music/foo.flac
 ```
 
 or use a playlist (YAML). an example:
@@ -44,20 +46,15 @@ or use a playlist (YAML). an example:
     - "03 Found You.flac"
     - "04 First Light.flac"
 ```
-if `songs` are not specified, the `location` is read and played.
 
-you can also specify any other DAC using the `--sink` by passing in the name of the sink.
+If `songs` are not specified, the `location` is read and played.
+
+You can also specify any other DAC using the `--sink` by passing in the name of the sink.
 
 ## interaction during playback
 
-during playback,
+During playback,
 
 <kbd>SPACE</kbd> to skip to next song
 
 <kbd>q</kbd> to quit
-
-## disclaimer
-
-only `flac` or `wav` files.
-
-experimental, use at your own risk.

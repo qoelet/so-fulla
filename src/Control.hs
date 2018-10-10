@@ -34,9 +34,7 @@ nextSong k = do
   return $ c == " "
 
 quit :: KeyListen -> IO Bool
-quit k = do
-  c <- readKeyUnchanged k
-  return $ c == "q"
+quit k = (== "q") <$> readKeyUnchanged k
 
 pollUser :: KeyListen -> IO ()
 pollUser key@(Key s) = do

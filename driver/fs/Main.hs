@@ -24,17 +24,15 @@ data Options
 main :: IO ()
 main = withCliModified mods run
   where
-    mods =
-      (AddVersionFlag "0.3.1") :
-      (AddShortOption "source" 's') :
-      []
-
+    mods = [
+        AddVersionFlag "0.3.1"
+      , AddShortOption "source" 's'
+      ]
 
 run :: Options -> IO ()
 run options = do
   writeBanner
   keyListen <- initKey
-
   hSetBuffering stdin NoBuffering
   hSetEcho stdin False
   _ <- forkIO $ pollUser keyListen

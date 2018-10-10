@@ -4,7 +4,7 @@ cabal-version: >= 1.10
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 44ea3b6097e63ecd357cda6d35b1272563cc989993aa3e6a67ddd47e7eb614ab
+-- hash: 41fc9a528c31b83e46118f08a54f7673b9d3ffa468187ac387c64699db45a0ab
 
 name:           so-fulla
 version:        0.3.1
@@ -25,6 +25,7 @@ executable fs
   hs-source-dirs:
       src
       driver/fs
+  ghc-options: -Wall -Wincomplete-uni-patterns -Wmissing-import-lists
   build-depends:
       base ==4.*
     , directory
@@ -51,6 +52,7 @@ test-suite spec
   hs-source-dirs:
       src
       test
+  ghc-options: -Wall -Wincomplete-uni-patterns -Wmissing-import-lists
   build-depends:
       base ==4.*
     , directory
